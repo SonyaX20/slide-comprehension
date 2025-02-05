@@ -11,14 +11,15 @@
 </head>
 <body>
     <div class="main-container">
-        <div class="container py-5">
-            <div class="app-header text-center mb-5">
-                <h1 class="display-4 mb-3">课程讲解助手</h1>
-                <p class="lead text-muted">上传幻灯片，获取智能讲解</p>
-            </div>
-            
-            <div class="row justify-content-center">
-                <div class="col-md-8 col-lg-6">
+        <div class="container-fluid">
+            <div class="row">
+                <!-- 左侧内容区域 -->
+                <div class="col-md-6 py-5">
+                    <div class="app-header text-center mb-5">
+                        <h1 class="display-4 mb-3">课程讲解助手</h1>
+                        <p class="lead text-muted">上传幻灯片，获取智能讲解</p>
+                    </div>
+                    
                     <div class="upload-card">
                         <form id="uploadForm">
                             <div class="mb-4">
@@ -60,6 +61,21 @@
                     
                     <div id="result" class="mt-4 markdown-body result-card"></div>
                 </div>
+                
+                <!-- 右侧思维导图区域 -->
+                <div class="col-md-6 py-5">
+                    <div class="mindmap-container">
+                        <div class="mindmap-toolbar">
+                            <button class="btn btn-sm btn-outline-primary" id="addNode">
+                                <i class="fas fa-plus"></i> 添加节点
+                            </button>
+                            <button class="btn btn-sm btn-outline-danger" id="clearMap">
+                                <i class="fas fa-trash"></i> 清空
+                            </button>
+                        </div>
+                        <div id="mindmap" class="mindmap-canvas"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -68,5 +84,7 @@
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/lib/highlight.min.js"></script>
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsPlumb/2.15.6/js/jsplumb.min.js"></script>
+    <script src="{{ url_for('static', filename='js/mindmap.js') }}"></script>
 </body>
 </html> 

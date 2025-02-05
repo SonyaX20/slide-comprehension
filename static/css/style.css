@@ -250,4 +250,121 @@ body {
     .custom-file-upload {
         padding: 1.5rem;
     }
+}
+
+/* 思维导图样式 */
+.mindmap-container {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    height: calc(100vh - 2rem);
+    position: relative;
+    overflow: hidden;
+}
+
+.mindmap-toolbar {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 1000;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.mindmap-canvas {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: auto;
+    background-color: #ffffff;
+    background-image: 
+        linear-gradient(rgba(74, 144, 226, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74, 144, 226, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    background-position: -1px -1px;
+}
+
+.mindmap-node {
+    position: absolute;
+    min-width: 100px;
+    min-height: 40px;
+    padding: 8px;
+    background: #fff;
+    border: 2px solid #4a90e2;
+    border-radius: 6px;
+    cursor: move;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 14px;
+    resize: both;
+    overflow: auto;
+    z-index: 1;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.node-text {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    cursor: default;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    word-break: break-word;
+}
+
+.node-text[contenteditable="true"] {
+    cursor: text;
+    background-color: rgba(74, 144, 226, 0.1);
+    border-radius: 4px;
+    padding: 2px;
+}
+
+.mindmap-node:hover {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.mindmap-node.selected {
+    border-color: #357abd;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.3);
+}
+
+.node-controls {
+    position: absolute;
+    top: -20px;
+    right: 0;
+    display: none;
+}
+
+.mindmap-node:hover .node-controls {
+    display: flex;
+    gap: 4px;
+}
+
+.node-control-btn {
+    width: 20px;
+    height: 20px;
+    padding: 0;
+    font-size: 12px;
+    line-height: 1;
+    border-radius: 50%;
+    background: #fff;
+    border: 1px solid #4a90e2;
+    color: #4a90e2;
+    cursor: pointer;
+}
+
+.node-control-btn:hover {
+    background: #4a90e2;
+    color: #fff;
+}
+
+/* 添加画布容器样式 */
+.mindmap-canvas-container {
+    width: 2000px;
+    height: 2000px;
+    position: relative;
 } 
