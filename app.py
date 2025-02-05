@@ -3,10 +3,13 @@ from dotenv import load_dotenv
 import os
 import openai
 
+# 加载环境变量
 load_dotenv()
 
 app = Flask(__name__)
-openai.api_key = os.getenv('OPENAI_API_KEY')
+
+# 从环境变量获取 API key
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 @app.route('/')
 def index():
@@ -60,5 +63,7 @@ def analyze_slide():
             "error": str(e)
         }), 500
 
-if __name__ == '__main__':
-    app.run(debug=True) 
+# Vercel 需要这个
+app.debug = False
+
+# 移除 if __name__ == '__main__' 部分，因为 Vercel 不需要它 
