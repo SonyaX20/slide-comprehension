@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify
 from dotenv import load_dotenv
 import os
 import openai
+import base64
+import re
 
 # 加载环境变量
 load_dotenv()
@@ -11,6 +13,23 @@ app = Flask(__name__)
 # 从环境变量获取 API key
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
+def is_base64_image(image_string):
+    """检查是否是base64图片数据"""
+    if not isinstance(image_string, str):
+        return False
+    
+    # 检查是否是data URI格式
+    if image_string.startswith('data:image'):
+        try:
+            # 提取实际的base64数据
+            base64_data = image_string.split(',')[1]
+            # 尝试解码
+            base64.b64decode(base64_data)
+            return True
+        except:
+            return False
+    return False
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -19,8 +38,18 @@ def index():
 def analyze_slide():
     try:
         data = request.json
-        slide_image = data.get('image')
+        image_data = data.get('image')
         title = data.get('title')
+        
+        # 处理图片数据
+        if is_base64_image(image_data):
+            # 如果是base64图片，直接使用
+            image_url = image_data
+        else:
+            return jsonify({
+                "success": False,
+                "error": "Invalid image format"
+            }), 400
         
         prompt = f"""用中文讲解这页幻灯片（输出标题为内容讲解）
         并给出问答形式的总结（输出标题为知识点总结）
@@ -42,7 +71,8 @@ def analyze_slide():
                         {
                             "type": "image_url",
                             "image_url": {
-                                "url": slide_image
+                                "url": image_url,
+                                "detail": "low"
                             }
                         }
                     ]

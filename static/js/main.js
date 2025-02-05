@@ -34,11 +34,19 @@ async function compressImage(file) {
                 canvas.width = width;
                 canvas.height = height;
                 
+                // 确保图片方向正确
+                ctx.save();
                 ctx.drawImage(img, 0, 0, width, height);
+                ctx.restore();
                 
-                // 压缩质量为0.7
-                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
+                // 使用 image/jpeg 格式并设置较低的质量以减小文件大小
+                const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.6);
                 resolve(compressedDataUrl);
+            };
+            
+            // 处理加载错误
+            img.onerror = () => {
+                resolve(null);
             };
         };
     });
